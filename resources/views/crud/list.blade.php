@@ -23,6 +23,8 @@
 
 
     <h1>List All Product</h1>
+     <h3>{{ URL::current() }}</h3>
+     <h4>{{URL::previous()}}</h4>
     <a href="{{ route('product.create') }}" class="btn btn-info">Add Student</a>
     <table class="table">
   <thead>
@@ -31,6 +33,7 @@
       <th scope="col">Product Name</th>
       <th scope="col">Price</th>
       <th scope="col">description</th>
+      <th scope="col">Image</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -41,6 +44,7 @@
       <td>{{ $product->name }}  </td>
       <td>{{ $product->price }}</td>
       <td>{{ $product->description }}</td>
+      <td><img src="{{asset('uploads/'.$product->image)}}" height="200px" width="200px" alt="image"></td>
       <td><a href="{{ route('product.edit',$product->id) }}" class="btn btn-success">Update</a></td>
       <td><a href="{{ route('product.delete',$product->id) }}" class="btn btn-danger">Delete</a></td>
     </tr>

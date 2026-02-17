@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+    <style>
+        .is-invalid{
+            border: 1px solid red;
+        }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -17,12 +22,26 @@
       {{ session()->get('error') }}
     </div>
     @endif
+
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>    
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <h1>Add Product</h1>
-                <form action="{{ route('product.store') }}" method="post">
+                <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Product Name</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" value="{{ old('name') }}" class="form-control {{$errors->first('name') ? 'is-invalid' : ''}}" name="name">
+                            @error('name')
+                              <p class="text-danger">*** {{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Product Price</label>
@@ -31,6 +50,10 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Product Description</label>
                             <input type="text" class="form-control" name="description">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Product Image</label>
+                            <input type="file" class="form-control" name="image">
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Add Product</button>

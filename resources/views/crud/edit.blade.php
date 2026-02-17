@@ -14,7 +14,7 @@
     <div class="container">
         
         <h1>Update Product</h1>
-                <form action="{{ route('product.update',$productEdit->id) }}" method="post">
+                <form action="{{ route('product.update',$productEdit->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Product Name</label>
@@ -27,6 +27,13 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Product Description</label>
                             <input type="text" class="form-control" name="description" value="{{ $productEdit->description }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Product Image</label>
+                            <input type="file" class="form-control" name="image">
+                        </div>
+                        <div class="form-group">
+                            <img src="{{ asset('uploads/'.$productEdit->image) }}" width="100" height="100" alt="">
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Update Product</button>
