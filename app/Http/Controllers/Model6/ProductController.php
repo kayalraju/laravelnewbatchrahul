@@ -9,7 +9,9 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function list(){
-        $productdata = Product::all();
+        //$productdata = Product::all();
+        //paginate
+        $productdata = Product::paginate(5);
         //dd($productdata);
         return view('crud.list',compact('productdata'));
     }
