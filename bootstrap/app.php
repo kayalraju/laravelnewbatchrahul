@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AgeCheck;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\AdminMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,18 +20,18 @@ return Application::configure(basePath: dirname(__DIR__))
 
         //**group    */
 
-        $middleware->appendToGroup("ageCheck",[
-            AgeCheck::class,
+        // $middleware->appendToGroup("ageCheck",[
+        //     AgeCheck::class,
             
-        ]);
+        // ]);
 
-        $middleware->appendToGroup("checkRole",[
-        CheckRole::class,
+        // $middleware->appendToGroup("checkRole",[
+        // CheckRole::class,
          
-        ]);
+        // ]);
 
         $middleware->alias([
-            // 'auth.admin' => AdminMiddleware::class,
+            'auth.admin' => AdminMiddleware::class,
             'auth' => AuthMiddleware::class
 
         ]);

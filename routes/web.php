@@ -5,7 +5,10 @@ use App\Http\Controllers\MiddlewareController;
 use App\Http\Controllers\Model6\ProductController;
 use App\Http\Controllers\module5\CollectionsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OneToONeController;
 use Illuminate\Support\Facades\Route;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -42,10 +45,10 @@ Route::get('/student', [MiddlewareController::class, 'Student'])->name('student'
 //     Route::get('/student1',[MiddlewareController::class,'Student'])->name('student1');
 // });
 
-Route::middleware('checkRole')->group(function () {
-   Route::get('/admin/dashboard', [MiddlewareController::class, 'Admin'])->name('admin');
-   Route::get('/admin/banner', [MiddlewareController::class, 'banner'])->name('banner');
-});
+// Route::middleware('checkRole')->group(function () {
+//    Route::get('/admin/dashboard', [MiddlewareController::class, 'Admin'])->name('admin');
+//    Route::get('/admin/banner', [MiddlewareController::class, 'banner'])->name('banner');
+// });
 
 
 //laravel guard auth rolebase
@@ -65,3 +68,37 @@ Route::prefix('user')->group(function () {
       Route::get('/logout', [UserController::class, 'logout'])->name('logout');
    });
 });
+
+
+//admin 
+
+Route::prefix('admin')->group(function () {
+   Route::get('/register', [AdminController::class, 'adminRegister'])->name('admin.register');
+   //Route::post('/register/create', [AdminController::class, 'adminRegisterPost'])->name('admin.register.post');
+   Route::get('/login', [AdminController::class, 'adminLogin'])->name('admin.login.view');
+   Route::post('/login/create', [AdminController::class, 'adminLoginPost'])->name('admin.login.post');
+   Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+
+
+   Route::middleware('auth.admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+        
+    });
+
+});
+
+
+//one to one relationship
+
+Route::get('/author', [OneToOneController::class, 'createAuthor'])->name('author');
+Route::post('/author/store', [OneToOneController::class, 'storeAuthor'])->name('author.store');
+//Route::get('/author/blog/{id}', [OneToOneController::class, 'authorBlog'])->name('author.blog');
+Route::get('/blog', [OneToOneController::class, 'createBlog'])->name('blog');
+Route::post('/blog/store', [OneToOneController::class, 'storeBlog'])->name('blog.store');
+Route::get('/bloglist', [OneToOneController::class, 'authorBlogList'])->name('blog.list');
+
+
+
+
