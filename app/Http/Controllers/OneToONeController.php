@@ -54,4 +54,27 @@ class OneToONeController extends Controller
         
         return view('onetoone.listblog', compact('authors_with_blogs', 'blogs_with_authors'));
     }
+
+    public function authorBlog($id)
+    {
+        // $author = Author::find($id);
+        // //dd($author->blog);
+        // //author name
+        // $author_name = $author->name;
+        // //dd($author_name);
+        // //blog title
+        // $blog_title = $author->blog->title;
+        // dd($blog_title);
+        // //blog content
+        // $blog_content = $author->blog->content;
+        // //
+
+        $blog = Blog::find($id);
+        $author_name = $blog->author->name;
+        //dd($author_name);
+        $blog_title = $blog->title;
+        dd($blog_title);
+        $blog_content = $blog->content;
+        
+    }
 }

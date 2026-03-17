@@ -7,6 +7,7 @@ use App\Http\Controllers\module5\CollectionsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OneToONeController;
+use App\Http\Controllers\OneToManyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -98,7 +99,14 @@ Route::post('/author/store', [OneToOneController::class, 'storeAuthor'])->name('
 Route::get('/blog', [OneToOneController::class, 'createBlog'])->name('blog');
 Route::post('/blog/store', [OneToOneController::class, 'storeBlog'])->name('blog.store');
 Route::get('/bloglist', [OneToOneController::class, 'authorBlogList'])->name('blog.list');
+Route::get('/author/blog/{id}', [OneToOneController::class, 'authorBlog'])->name('author.blog');
 
 
 
+// one to many relationship
+
+Route::get('/create/company', [OneToManyController::class, 'createCompany'])->name('company');
+Route::get('/create/employee', [OneToManyController::class, 'createEmployee'])->name('employee');
+Route::get('/company/with/employee', [OneToManyController::class, 'companyWithEmployee'])->name('cpmpany.with.employee');
+Route::get('/employee/with/company', [OneToManyController::class, 'employeeWithCompany'])->name('employee.with.company');
 
