@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OneToONeController;
 use App\Http\Controllers\OneToManyController;
+use App\Http\Controllers\QueryBuilderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -109,4 +110,19 @@ Route::get('/create/company', [OneToManyController::class, 'createCompany'])->na
 Route::get('/create/employee', [OneToManyController::class, 'createEmployee'])->name('employee');
 Route::get('/company/with/employee', [OneToManyController::class, 'companyWithEmployee'])->name('cpmpany.with.employee');
 Route::get('/employee/with/company', [OneToManyController::class, 'employeeWithCompany'])->name('employee.with.company');
+
+
+//query builder
+
+Route::get('/query', [QueryBuilderController::class, 'index'])->name('query.builder');  
+Route::get('/query/add', [QueryBuilderController::class, 'createdata'])->name('query.create');  
+Route::post('/query/store', [QueryBuilderController::class, 'store'])->name('query-builder.store');  
+Route::get('/query/edit/{id}', [QueryBuilderController::class, 'edit'])->name('query-builder.edit');  
+Route::get('/query/edit/{id}', [QueryBuilderController::class, 'edit'])->name('query-builder.edit');
+Route::put('/query-builder/{id}', [QueryBuilderController::class, 'update'])->name('query-builder.update');
+Route::delete('/query-builder/delete/{id}', [QueryBuilderController::class, 'delete'])->name('query-builder.delete');
+
+
+Route::get('/search', [QueryBuilderController::class, 'search'])->name('query-builder.search');
+
 
