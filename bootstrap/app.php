@@ -7,6 +7,8 @@ use App\Http\Middleware\AgeCheck;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\AdminMiddleware;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,10 +35,13 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'auth.admin' => AdminMiddleware::class,
-            'auth' => AuthMiddleware::class
+            // 'auth' => AuthMiddleware::class
 
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        //
+    ->withExceptions(function (Exceptions $exceptions) {
+
+        $exceptions->render(function (RouteNotFoundException $e, Request $request) {
+            return response()->json(['error' => 'You do not have permission to access this path'], 401);
+        });
     })->create();
